@@ -16,13 +16,13 @@ In this repository, you'll find simple "Hello World" programs written in multipl
 
 ### 4. Python
 
-### 5. PHP (Laravel)
+### 5. PHP
+
+### 6. PHP (Laravel)
+
 
 ## Usage
 
 Feel free to explore the code 
 
-```bash
-git clone https://github.com/your-username/multilingual-hello-world.git
-cd multilingual-hello-world
 
