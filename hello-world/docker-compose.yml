@@ -1,11 +1,7 @@
 version: '3'
 services:
-  # PHP Service
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: laravel_app
+    build: .
     container_name: app
     restart: unless-stopped
     tty: true
@@ -18,13 +14,10 @@ services:
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
-
-  # Nginx Service
   webserver:
     image: nginx:alpine
     container_name: webserver
     restart: unless-stopped
-    tty: true
     depends_on:
       - app
     ports:
@@ -34,13 +27,10 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
-
-  # MySQL Service
   db:
     image: mysql:5.7
     container_name: db
     restart: unless-stopped
-    tty: true
     ports:
       - "3306:3306"
     environment:
@@ -48,19 +38,15 @@ services:
       MYSQL_USER: testing
       MYSQL_PASSWORD: 47xtPYyHpV77
       MYSQL_ROOT_PASSWORD: 47xtPYyHpV77
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
     volumes:
       - dbdata:/var/lib/mysql/
     networks:
       - app-network
 
-# Volumes
 volumes:
   dbdata:
     driver: local
 
-# Networks
 networks:
   app-network:
     driver: bridge
