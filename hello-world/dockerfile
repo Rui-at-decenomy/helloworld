@@ -29,15 +29,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy existing application directory contents
 COPY . /var/www
 
-# Change ownership and permissions
-RUN chown -R www-data:www-data /var/www && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/vendor
+# Optionally run composer install, uncomment if needed
+# RUN composer install --no-dev --optimize-autoloader
 
-# Set user
-USER www-data
-
-# Run composer install
-RUN composer install --no-dev --optimize-autoloader
-
+# Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
