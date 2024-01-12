@@ -25,7 +25,7 @@ services:
       - "8000:80"
     volumes:
       - ./:/var/www
-      - .hello-world/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./hello-world/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
   db:
