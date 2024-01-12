@@ -1,6 +1,5 @@
 version: '3'
 services:
-
   # PHP Service
   app:
     build:
@@ -47,7 +46,7 @@ services:
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_USER: testing
-      MYSQL_PASSWORD:  47xtPYyHpV77
+      MYSQL_PASSWORD: 47xtPYyHpV77
       MYSQL_ROOT_PASSWORD: 47xtPYyHpV77
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
@@ -65,4 +64,3 @@ volumes:
 networks:
   app-network:
     driver: bridge
-
