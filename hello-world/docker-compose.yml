@@ -18,6 +18,7 @@ services:
     image: nginx:alpine
     container_name: webserver
     restart: unless-stopped
+    tty: true
     depends_on:
       - app
     ports:
