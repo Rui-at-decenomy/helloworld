@@ -3,7 +3,7 @@ FROM php:8.1-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Install dependencies and PHP extensions
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
@@ -14,34 +14,31 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
-    curl && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    curl
 
-# Install Composer globally
+# Clear out the local repository 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd
+
+# Install 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy existing application directory contents
+# Copy 
 COPY . /var/www
 
-# Ensure files are owned by the non-root user
-RUN chown -R www-data:www-data /var/www
+# Change ownership of the application
+USER root
+RUN chown -R www-data:www-data /var/www && \
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# Switch to www-data user and run composer as www-data
-USER www-data
-
-# Install composer dependencies
-RUN composer install --no-interaction --prefer-dist --no-progress --no-suggest
-
-# Set permissions for storage, bootstrap/cache, and vendor
-# Ensure the www-data user has write permissions
-RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/vendor
-
-# Change current user to www
+# Switch back to the www-data user
 USER www-data
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
+
 
