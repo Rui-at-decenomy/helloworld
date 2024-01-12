@@ -31,8 +31,7 @@ COPY . /var/www
 
 # Change ownership and permissions
 RUN chown -R www-data:www-data /var/www && \
-    find /var/www -type d -exec chmod 755 {} \; && \
-    find /var/www -type f -exec chmod 644 {} \;
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/vendor
 
 # Set user
 USER www-data
