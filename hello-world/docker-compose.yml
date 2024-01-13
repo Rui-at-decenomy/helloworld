@@ -22,7 +22,7 @@ services:
     depends_on:
       - app
     ports:
-      - "8000:80"
+      - "8000:8000"
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
