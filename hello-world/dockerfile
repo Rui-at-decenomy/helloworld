@@ -41,3 +41,9 @@ RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/vendor
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
+
+# Copy start script
+COPY start.sh /usr/local/bin/start.sh
+
+# Set script as entrypoint
+ENTRYPOINT ["start.sh"]
