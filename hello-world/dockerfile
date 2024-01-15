@@ -44,6 +44,7 @@ CMD ["php-fpm"]
 
 # Copy start script
 COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 # Set script as entrypoint
 ENTRYPOINT ["/usr/local/bin/start.sh"]
